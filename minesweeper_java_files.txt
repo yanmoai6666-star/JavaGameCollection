@@ -1,0 +1,5 @@
+C:\Users\DELL\Desktop\mcp\project_2\JavaGameCollection\src\games\minesweeper\Board.java
+C:\Users\DELL\Desktop\mcp\project_2\JavaGameCollection\src\games\minesweeper\Cell.java
+C:\Users\DELL\Desktop\mcp\project_2\JavaGameCollection\src\games\minesweeper\GUI.java
+C:\Users\DELL\Desktop\mcp\project_2\JavaGameCollection\src\games\minesweeper\MinesweeperGame.java
+C:\Users\DELL\Desktop\mcp\project_2\JavaGameCollection\src\games\minesweeper\Settings.java
