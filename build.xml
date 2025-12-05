@@ -32,6 +32,10 @@
     <target name="run-minesweeper" depends="compile" description="Run Minesweeper game">
         <java classname="games.minesweeper.MinesweeperGame" classpathref="classpath" fork="true" />
     </target>
+
+    <target name="run-memorycard" depends="compile" description="Run Memory Card game">
+        <java classname="games.memorycard.MemoryCardGame" classpathref="classpath" fork="true" />
+    </target>
     
     <!-- Target: Run Snake -->
     <target name="run-snake" depends="compile" description="Run Snake game">
