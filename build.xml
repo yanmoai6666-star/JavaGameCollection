@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="JavaGameCollection" default="compile" basedir=".">
+    
+    <!-- Project properties -->
+    <property name="src.dir" value="src" />
+    <property name="build.dir" value="bin" />
+    <property name="lib.dir" value="lib" />
+    <property name="main.class" value="games.minesweeper.MinesweeperGame" />
+    
+    <!-- Path definitions -->
+    <path id="classpath">
+        <pathelement location="${build.dir}" />
+        <fileset dir="${lib.dir}">
+            <include name="*.jar" />
+        </fileset>
+    </path>
+    
+    <!-- Target: Clean -->
+    <target name="clean" description="Clean up build directory">
+        <delete dir="${build.dir}" />
+        <mkdir dir="${build.dir}" />
+    </target>
+    
+    <!-- Target: Compile -->
+    <target name="compile" depends="clean" description="Compile all Java sources">
+        <javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="classpath" debug="true" includeantruntime="false">
+            <compilerarg value="-Xlint:unchecked" />
+        </javac>
+    </target>
+    
+    <!-- Target: Run Minesweeper -->
+    <target name="run-minesweeper" depends="compile" description="Run Minesweeper game">
+        <java classname="games.minesweeper.MinesweeperGame" classpathref="classpath" fork="true" />
+    </target>
+    
+    <!-- Target: Run Snake -->
+    <target name="run-snake" depends="compile" description="Run Snake game">
+        <java classname="games.snake.SnakeGame" classpathref="classpath" fork="true" />
+    </target>
+    
+    <!-- Target: Run Tetris -->
+    <target name="run-tetris" depends="compile" description="Run Tetris game">
+        <java classname="games.tetris.TetrisGame" classpathref="classpath" fork="true" />
+    </target>
+    
+    <!-- Target: Run Pacman -->
+    <target name="run-pacman" depends="compile" description="Run Pacman game">
+        <java classname="games.pacman.PacmanGame" classpathref="classpath" fork="true" />
+    </target>
+    
+    <!-- Target: Run Breakout -->
+    <target name="run-breakout" depends="compile" description="Run Breakout game">
+        <java classname="games.breakout.BreakoutGame" classpathref="classpath" fork="true" />
+    </target>
+    
+    <!-- Target: Run Connect4 -->
+    <target name="run-connect4" depends="compile" description="Run Connect4 game">
+        <java classname="games.connect4.Connect4Game" classpathref="classpath" fork="true" />
+    </target>
+    
+    <!-- Target: Run all games (for testing) -->
+    <target name="run-all" depends="compile" description="Run all games for testing">
+        <parallel>
+            <java classname="games.minesweeper.MinesweeperGame" classpathref="classpath" fork="true" />
+            <java classname="games.snake.SnakeGame" classpathref="classpath" fork="true" />
+            <java classname="games.tetris.TetrisGame" classpathref="classpath" fork="true" />
+            <java classname="games.pacman.PacmanGame" classpathref="classpath" fork="true" />
+            <java classname="games.breakout.BreakoutGame" classpathref="classpath" fork="true" />
+            <java classname="games.connect4.Connect4Game" classpathref="classpath" fork="true" />
+        </parallel>
+    </target>
+    
+    <!-- Target: Generate Javadoc -->
+    <target name="javadoc" description="Generate Javadoc documentation">
+        <javadoc sourcepath="${src.dir}" destdir="docs/javadoc" classpathref="classpath" author="true" version="true" use="true" windowtitle="JavaGameCollection API Documentation">
+            <fileset dir="${src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+        </javadoc>
+    </target>
+    
+    <!-- Target: Package as JAR -->
+    <target name="jar" depends="compile" description="Package the application as a JAR file">
+        <jar destfile="${ant.project.name}.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main.class}" />
+                <attribute name="Class-Path" value="." />
+            </manifest>
+        </jar>
+    </target>
+    
+    <!-- Target: Create distribution -->
+    <target name="dist" depends="jar" description="Create distribution package">
+        <mkdir dir="dist" />
+        <copy file="${ant.project.name}.jar" todir="dist" />
+        <copy file="README.md" todir="dist" />
+        <copy file=".gitignore" todir="dist" />
+        <copy file="build.xml" todir="dist" />
+        <mkdir dir="dist/lib" />
+        <copy todir="dist/lib">
+            <fileset dir="${lib.dir}">
+                <include name="*.jar" />
+            </fileset>
+        </copy>
+        <zip destfile="${ant.project.name}-dist.zip" basedir="dist" />
+    </target>
+</project>
